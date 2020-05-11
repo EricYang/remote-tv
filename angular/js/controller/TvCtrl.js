@@ -24,7 +24,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
 angular.module('myApp')
     .controller('TvCtrl',['$scope','$rootScope','modal','cfpLoadingBar','webService',function($scope,$rootScope,modal,cfpLoadingBar,webService){
     var path='https://iptv-org.github.io/iptv/index.country.m3u'
-    var pathCountries="http://api.aaa4u.info/public/countries"
+    var pathCountries="https://api.aaa4u.info/public/countries"
     $scope.selectedIndex=0
         $scope.changeCountry=function(country){
          $scope.selectChannels=$scope.channels.filter(function(channel){
