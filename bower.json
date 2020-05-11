@@ -1,0 +1,33 @@
+{
+  "name": "broadcast-219",
+  "description": "broadcast tool for 219",
+  "version": "1.0.0",
+  "homepage": "",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "~3.x",
+    "angular": "~1.5.x",
+    "angular-route": "1.5.x",
+    "angular-loader": "1.5.x",
+    "angular-mocks": "~1.5.x",
+    "html5-boilerplate": "~4.3.0",
+    "angular-bootstrap": "~0.12.0",
+    "angular-resource": "~1.5.x",
+    "angular-cookies": "~1.5.x",
+    "angular-animate": "~1.5.x",
+    "angular-print": "*",
+    "angular-utf8-base64": "*",
+    "js-xlsx": "~0.8.0",
+    "angular-ui-router": "^0.2.18",
+    "angular-messages": "^1.5.5",
+    "angular-touch": "^1.5.5",
+    "angularLocalStorage": "ngStorage#^0.3.2",
+    "angular-sanitize": "^1.5.5",
+    "ngstorage": "^0.3.10",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "angular-translate": "^2.11.0"
+  }
+}

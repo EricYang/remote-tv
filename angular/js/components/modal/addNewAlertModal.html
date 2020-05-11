@@ -1,0 +1,14 @@
+    <div class="modal-header">
+        <h3 class="modal-title">{{title}}</h3>
+    </div>
+    <div class="modal-body">
+            <h4>{{message}}</h4> 
+        <div ng-show="type=='STOP_CUSTOMER_STATUS'">
+	<label for="inputComment" class="control-label" >備註欄</label> 
+        <input id="inputComment" class="form-control" ng-model="comment" type="text" value='comment'>
+    	</div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">確定</button>
+        <button class="btn btn-warning" ng-if="type=='DELETE' || type=='STOP_CUSTOMER_STATUS'" ng-click="cancel()">取消</button>
+    </div>

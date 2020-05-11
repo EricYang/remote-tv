@@ -1,0 +1,76 @@
+<div class="row">
+        <table class="table table-hover table-striped table-condensed table-scrollable">
+            <tr>
+                <th ng-show="{{itemTitle.visible}}" ng-repeat="itemTitle in itemTitles">
+                    <a href="" ng-click="order(itemTitle)">{{itemTitle.name}}</a></th>
+            </tr>
+
+            <tr ng-repeat="item in items | orderBy:predicate:reverse">
+                <td ng-repeat="itemTitle in itemTitles track by $index" ng-show="itemTitle.visible" >
+                    <a href="{{item.link}}" ng-if="itemTitle.id===editKey"> {{ displayVal($index,item[itemTitle.id])}} </a> 
+                    <p ng-if="itemTitle.id!==editKey && itemTitle.type=='String'"> {{ displayVal($index,item[itemTitle.id],itemTitle.id,itemTitles)}} </p> 
+                
+                    <a href="{{itemTitle.href}}{{item[itemTitle.id]}}" target="_new"  ng-if="itemTitle.type=='Link'"> 查看</a> 
+                            <p ng-if="itemTitle.id!==editKey && itemTitle.type=='Number'">
+                                {{ displayVal($index,item[itemTitle.id],itemTitle.id,itemTitles)}}
+                            </p>
+                            <p ng-if="itemTitle.id!==editKey && itemTitle.type!=='Array' && itemTitle.type==='Date'">
+                                {{DisplayChYear(item[itemTitle.id],false,true)}} 
+                            </p>
+                            <div ng-if="itemTitle.id!==editKey && itemTitle.visible && itemTitle.ref && itemTitle.id!='songs'">
+                                <uib-accordion>
+                                    <uib-accordion-group is-open="status.open">
+                                        <uib-accordion-heading>
+                                            {{item[itemTitle.id].length||item[itemTitle.id][schema[itemTitle.ref][0].id]}}
+                                        </uib-accordion-heading>
+                                        <div ng-if="itemTitle.type=='Array'" class="panel panel-default" ng-repeat="objs in item[itemTitle.id]">
+                                            <div class="panel-body">
+                                                <ul ng-repeat="(key,value)  in objs">
+                                                    <li ng-repeat="s in schema[itemTitle.ref]" ng-if="s.id==key">
+							{{s.name}}
+							<br>
+						
+							<a ng-if="s.ref && s.type!='Array'" href="#/{{s.link}}/{{value}}">
+                                                        {{value}}
+                                                        </a>
+							<a ng-if="s.ref && s.type=='Array'" ng-repeat="href in value track by $index" href="#/{{s.link}}/{{href}}">
+                                                        {{href}}
+                                                        </a>
+                                                        <p ng-if="!s.ref">
+                                                        {{value}}
+                                                        </p>                                                        
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div ng-if="itemTitle.type!=='Array'" class="panel panel-default">
+                                            <div class="panel-body">
+                                                <ul ng-repeat="(key,value)  in item[itemTitle.id]">
+                                                    <li ng-repeat="s in schema[itemTitle.ref]" ng-if="s.id==key">
+							{{s.name}}
+							<br>
+						
+							<a ng-if="s.ref && s.type!='Array'" href="#/{{s.link}}/{{value}}">
+                                                        {{value}}
+                                                        </a>
+							<a ng-if="s.ref && s.type=='Array'" ng-repeat="href in value track by $index" href="#/{{s.link}}/{{href}}">
+                                                        {{href}}
+                                                        </a>
+                                                        <p ng-if="!s.ref">
+                                                        {{value}}
+                                                        </p>                                                        
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </uib-accordion-group>
+                                </uib-accordion>
+                            </div>
+
+                        <button ng-if="itemTitle.id=='func_btn_stop'" button class="btn btn-default" href="#" ng-click="toggleItem(item)"><i class="fa fa-pencil"></i></button>
+                        <a ng-if="itemTitle.id=='func_btn_edit'" button class="btn btn-default" href="#{{item.link}}/{{item._id}}"><i class="fa fa-pencil"></i></a>
+                    <button ng-if="itemTitle.id=='func_btn_delete'" button class="btn btn-default" href="#" ng-click="deleteItem(item)"><i class="fa fa-trash-o"></i></button>
+		</td>
+            </tr>
+        </table>
+    </div>

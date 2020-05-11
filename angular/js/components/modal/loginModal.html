@@ -1,0 +1,25 @@
+    <div class="modal-header text-center">
+    <h3 class="modal-title"><img src="lib/img/logo.jpg" width="119" class="logo" />{{title}}</h3>
+</div>
+<div class="col-sm-12">
+    <div class="modal-body">
+        <app-alert alerts="alerts" close-alert="closeAlert($index)"></app-alert>
+        <form name="form">
+            <div class="form-group">
+                <label>帳戶名稱</label>
+                <input id="inputLoginAccount" class="form-control" ng-model="user.username" required="" autofocus="" type="text">
+            </div>
+            <div class="form-group">
+                <label>帳戶密碼</label>
+                <input id="inputLoginPassword" class="form-control" ng-model="user.password" required="" type="password">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-lg btn-success btn-block" ng-click="ok()">登入</button>
+            </div>
+            </br>
+            <p class="text-center"><small>Copyright©2015 瑞影企業股份有限公司,All Right Reserved. Powered by Deansoft Inc.</small></p>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+</div>

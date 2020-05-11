@@ -1,0 +1,12 @@
+<div class="sidebar-nav navbar-collapse" ng-show="{{sEnvironment.visible}}">
+    <ul class="nav">
+        <li ng-repeat='data in sData'>
+        <a href="javascript:;" data-target="#{{data.id}}"><i class="data.icon"></i>{{data.name}}<i class="fa fa-fw fa-caret-down"></i></a>
+        <ul id={{data.id}} class="nav nav-second-level collapse">
+            <li ng-repeat='list in data.list'>
+            <a href="{{list.href}}">{{list.name}}</a>
+            </li>
+        </ul>
+        </li>
+    </ul>
+</div>

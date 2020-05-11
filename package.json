@@ -1,0 +1,34 @@
+{
+  "name": "broadcast-219",
+  "version": "1.0.10",
+  "description": "broadcast tool for 219",
+  "main": "index.html",
+  "single-instance": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "window": {
+    "title": "broadcast-219",
+    "icon": "resource/img/logo_s.png",
+    "toolbar": true,
+    "frame": true,
+    "width": 800,
+    "height": 600,
+    "min_width": 500,
+    "min_height": 340,
+    "max_width": 800,
+    "max_height": 600,
+    "position": "mouse"
+  },
+  "keywords": [
+    "broadcast",
+    "tool",
+    "219"
+  ],
+  "author": "EricYang",
+  "license": "ISC",
+  "dependencies": {
+    "ping-wrapper": "0.0.3",
+    "request": "^2.72.0"
+  }
+}

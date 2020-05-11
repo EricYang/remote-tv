@@ -1,0 +1,28 @@
+    <div class="modal-header col-sm-12">
+	<div class="modal-title">
+        <h3 class="col-sm-11">{{groupAuth.name}}</h3>
+	<div class="col-sm-1">
+         <button class="btn btn-default hidden-print" href="#" ng-click="delete()"><i class="fa fa-trash-o"></i></button>
+    </div>
+    </div>
+    </div>
+    <div class="modal-body col-sm-12">
+        <table class="table table-hover table-striped table-condensed table-scrollable">
+            <tr>
+            <th ng-repeat="item in items">
+                <label>{{item.chname}} </label></th>
+            </tr>
+           <tr>
+            <td ng-repeat="permission in groupAuth.permit">
+            <select ng-model="permission.level" ng-change="change()">
+	<option ng-repeat="option in options2" ng-if="permission.name=='print'||permission.name=='logger'||permission.name=='query'" ng-selected="permission.level==option.val" value="{{option.val}}">{{option.lab}}</option>
+	<option ng-repeat="option in options" ng-if="permission.name!='print' && permission.name!='logger' && permission.name!='query'" ng-selected="permission.level==option.val" value="{{option.val}}">{{option.lab}}</option>
+        </td>    
+	</select>
+            </tr>
+     </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">關閉</button>
+        <button class="btn btn-warning" ng-click="update()">更新</button>
+    </div>

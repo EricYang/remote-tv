@@ -1,0 +1,78 @@
+body { 
+padding-top: 40px; 
+padding-bottom: 40px; 
+}
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.panel-footer {
+    position: relative;
+    margin-top: 140px;/*等于footer的高度*/
+    height: 60px;
+    clear:both;
+}
+.broadcast-header {
+    position:fixed; 
+    top:50px;
+    margin:auto; 
+    z-index:2; 
+    width:100%;
+    background-color:#EDEFF0;
+}
+.broadcast-body {
+    z-index:1; 
+}
+.broadcast-body-select {
+    position:relative; 
+    top:120px;
+    margin:auto; 
+}
+.broadcast-body-list {
+    position:relative; 
+    top:180px;
+    margin:auto; 
+}
+.break-empty-box {
+    border: 10px 
+    margin: 20px;
+    padding: 10px;
+    width: 200px;
+    height: 60px;
+}
+.rooms-list {
+    position:relative; 
+    top:60px;
+    margin:auto; 
+}
+
+
+.navbar-custom {
+        background-color:#EF1944;
+            color:#ffffff;
+                border-radius:0;
+}
+
+.navbar-custom .navbar-nav > li > a {
+    color:#fff;
+}
+.navbar-custom .navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus {
+    color: #ffffff;
+    background-color:transparent;
+}
+.navbar-custom .navbar-brand {
+    color:#eeeeee;
+    }

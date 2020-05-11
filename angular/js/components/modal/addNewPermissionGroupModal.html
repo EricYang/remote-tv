@@ -1,0 +1,26 @@
+    <div class="modal-header">
+        <h3 class="modal-title">{{title}}</h3><input type="text" ng-model="name" value="name">
+    </div>
+    <div class="modal-body">
+        <form name="form">
+        <table class="table table-hover table-striped table-condensed table-scrollable">
+            <tr>
+            <th ng-repeat="item in items">
+                <label>{{item.chname}} </label></th>
+            </tr>
+           <tr>
+            <td ng-repeat="permission in items">
+            <select ng-model="permits[permission.name]" ng-change="change()">
+	<option ng-repeat="option in options2" ng-if="permission.name=='print'||permission.name=='logger'||permission.name=='query'" ng-selected="permits[permission.name]==option.val" value="{{option.val}}">{{option.lab}}</option>
+	<option ng-repeat="option in options" ng-if="permission.name!='print' && permission.name!='logger' && permission.name!='query'" ng-selected="permits[permission.name]==option.val" value="{{option.val}}">{{option.lab}}</option>
+        </td>    
+	</select>
+            </tr>
+     </table>
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">確定</button>
+        <button class="btn btn-warning" ng-click="cancel()">取消</button>
+    </div>

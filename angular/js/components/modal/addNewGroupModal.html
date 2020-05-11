@@ -1,0 +1,23 @@
+    <div class="modal-header">
+        <h3 class="modal-title">{{title}}</h3>
+    </div>
+    <div class="modal-body">
+        <app-alert alerts="alerts" close-alert="closeAlert($index)"></app-alert>
+        <form name="form">
+            <label for="inputGroupName">群組名稱</label> 
+            <input name="inputGroupName" class="form-control" 
+            ng-model="group.name" placeholder="客戶群組-A" required="required" type="text" value='group.name'>
+            <span class="error" ng-show="myForm.inputGroupName.$error.required">Required!</span>
+            <br/>
+            <label for="inputVip">提前下載天數</label> 
+            <input name="inputVip" class="form-control" 
+            ng-model="group.vip" min="0" max="99" ng-required="true" type="number" value='group.vip'>
+            <span class="error" ng-show="myForm.inputVip.$error.required">Required!</span>
+            <span class="error" ng-show="myForm.inputVip.$error.number">Not valid number!</span>
+            <br/>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">確定</button>
+        <button class="btn btn-warning" ng-click="cancel()">取消</button>
+    </div>

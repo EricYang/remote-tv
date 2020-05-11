@@ -1,0 +1,13 @@
+    <div class="modal-header">
+        <h3 class="modal-title">{{title}}</h3>
+    </div>
+    <div class="modal-body">
+        <form name="form">
+            <input type="text" ng-model="selected" typeahead="customer.company_name for customer in customers | filter:$viewValue | limitTo:8" class="form-control">
+            <label for="inputNewCustomer">搜尋客戶</label> 
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">確定</button>
+        <button class="btn btn-warning" ng-click="cancel()">取消</button>
+    </div>
