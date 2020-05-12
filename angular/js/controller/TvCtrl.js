@@ -1,30 +1,6 @@
 'use strict';   
 
-function nofind(){
-  var img=event.srcElement;
-    img.src='https://vignette.wikia.nocookie.net/russel/images/c/cc/Channel_27_Test_Card_%281995-2001%29.png/revision/latest?cb=20190531022914'
-      img.οnerrοr=null; 
-      }
-
-var getUrlParameter = function getUrlParameter(sParam) {
-  var sPageURL = window.location.search.substring(1),
-      sURLVariables = sPageURL.split('&'),
-      sParameterName,
-      i;
-
-  for (i = 0; i < sURLVariables.length; i++) {
-    sParameterName = sURLVariables[i].split('=');
-
-    if (sParameterName[0] === sParam) {
-      return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
-    }
-  }
-};
-
-angular.module('myApp')
-    .controller('TvCtrl',['$scope','$rootScope','modal','cfpLoadingBar','webService',function($scope,$rootScope,modal,cfpLoadingBar,webService){
-    var path='https://iptv-org.github.io/iptv/index.country.m3u'
-    $scope.transCountrys=[
+    var transCountrys=[
     {
     "_id": "592e5905df33801ad8203f3d",
     "name": "Hong Kong",
@@ -74,6 +50,17 @@ angular.module('myApp')
       "code": "CN"
     },
     ]
+
+angular.module('myApp')
+    .controller('TvCtrl',['$scope','$rootScope','$location','modal','cfpLoadingBar','webService',function($scope,$rootScope,$location,modal,cfpLoadingBar,webService){
+    var path='https://iptv-org.github.io/iptv/index.country.m3u'
+    
+        $scope.transCountrys=transCountrys;
+        $scope.type=$location.search().type
+        $scope.disableCountry=false;
+
+        console.log('type',$scope.type)
+
         $scope.findNameByCode=function(code){
         var result={};
            $scope.transCountrys.map(function(a){
@@ -87,19 +74,30 @@ angular.module('myApp')
         $scope.selectedIndex=0
         $scope.selectedCountry={};
         $scope.changeCountry=function(country){
-       
           $scope.selectedCountry=$scope.findNameByCode(country)
           console.log($scope.selectedCountry)
+         if(country=='III'){
+           $scope.selectChannels=iqiyi.segments
+         }else if(country.search('1818')!=-1){
+         var time=Number(country.split('-')[1])
+         var at=time*200
+         var end=(time+1)*200
+         console.log('at',at,'end',end)
+        $scope.selectChannels=age1818.segments.slice(at,end)
+         }else{
           $scope.selectChannels=$scope.channels.filter(function(channel){
             return channel.inf.tvgCountry==country
          })
+         }
+        }
+        $scope.readm3u8=function(data){
+         reader.read(data);
+         return reader.getResult().segments 
         }
 
-
+        $scope.normal=function(){
         webService.get(path,{},function(data){
-         reader.read(data);
-         console.log('result', reader.getResult());
-         $scope.channels=reader.getResult().segments
+         $scope.channels=$scope.readm3u8(data)
          $scope.countrys=[]
          $scope.channels.map(function(channel){
           if($scope.countrys.indexOf(channel.inf.tvgCountry)==-1){
@@ -113,6 +111,27 @@ angular.module('myApp')
              $scope.countries.push(a)
             }
           })
+          $scope.countries.push(
+            {"name": "Audlt","zht_name": "限制級影視-1","code": "1818-0"})
+          $scope.countries.push(
+            {"name": "Audlt","zht_name": "限制級影視-2","code": "1818-1"})
+          $scope.countries.push(
+            {"name": "Audlt","zht_name": "限制級影視-3","code": "1818-2"})
+          $scope.countries.push(
+            {"name": "Audlt","zht_name": "限制級影視-4","code": "1818-3"})
+          $scope.countries.push(
+            {"name": "Audlt","zht_name": "限制級影視-5","code": "1818-4"})
+          $scope.countries.push(
+            {"name": "Audlt","zht_name": "限制級影視-6","code": "1818-6"})
+          $scope.countries.push(
+            {"name": "Audlt","zht_name": "限制級影視-7","code": "1818-7"})
+          $scope.countries.push(
+            {
+            "_id": "592e5905df33801ad8203f53",
+            "name": "IQIYI",
+            "zht_name": "愛奇藝影視",
+            "code": "III"
+            })
           $scope.countries=$scope.countries.sort(function(a,b){
            if(a.code > b.code)return -1
            if(a.code < b.code)return 1
@@ -120,6 +139,7 @@ angular.module('myApp')
           })
           $scope.changeCountry('TW')
         })
+        }
 
         $scope.nextChannel=function(){
         $scope.selectedIndex+=1
@@ -141,6 +161,14 @@ angular.module('myApp')
           src:url });
           player.load()
           player.play()
+
+        }
+
+        if($scope.type=='1818'){
+        $scope.selectChannels=age1818.segments
+        $scope.disableCountry=true;
+        }else{
+        $scope.normal();
 
         }
        
