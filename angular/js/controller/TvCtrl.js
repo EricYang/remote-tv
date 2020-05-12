@@ -24,15 +24,77 @@ var getUrlParameter = function getUrlParameter(sParam) {
 angular.module('myApp')
     .controller('TvCtrl',['$scope','$rootScope','modal','cfpLoadingBar','webService',function($scope,$rootScope,modal,cfpLoadingBar,webService){
     var path='https://iptv-org.github.io/iptv/index.country.m3u'
-    var pathCountries="https://api.aaa4u.info/public/countries"
-    $scope.selectedIndex=0
+    $scope.transCountrys=[
+    {
+    "_id": "592e5905df33801ad8203f3d",
+    "name": "Hong Kong",
+    "zht_name": "香港",
+    "code": "HK"
+    },
+    {
+    "_id": "592e5905df33801ad8203fe6",
+    "name": "Singapore",
+    "zht_name": "新加坡",
+    "code": "SG"
+    },
+    {
+    "_id": "592e5905df33801ad8203f24",
+    "name": "Australia",
+    "zht_name": "澳洲",
+    "code": "AU"
+    },
+    {
+      "_id": "592e5905df33801ad8203f9a",
+      "name": "Taiwan",
+      "zht_name": "中華民國",
+      "code": "TW"
+    },
+    {
+      "_id": "592e5905df33801ad8203fa7",
+      "name": "Malaysia",
+      "zht_name": "馬來西亞",
+      "code": "MY"
+    },
+    {
+      "_id": "592e5905df33801ad8203f1f",
+      "name": "United States",
+      "zht_name": "美國爸爸",
+      "code": "US"
+    },
+    {
+      "_id": "592e5905df33801ad8203f85",
+      "name": "Japan",
+      "zht_name": "小日本",
+      "code": "JP"
+    },
+    {
+      "_id": "592e5905df33801ad8203f53",
+      "name": "China",
+      "zht_name": "中華民國淪陷區",
+      "code": "CN"
+    },
+    ]
+        $scope.findNameByCode=function(code){
+        var result={};
+           $scope.transCountrys.map(function(a){
+              if(a.code==code){
+              result=a
+              }        
+              })  
+              return result
+        }
+
+        $scope.selectedIndex=0
+        $scope.selectedCountry={};
         $scope.changeCountry=function(country){
-         $scope.selectChannels=$scope.channels.filter(function(channel){
+       
+          $scope.selectedCountry=$scope.findNameByCode(country)
+          console.log($scope.selectedCountry)
+          $scope.selectChannels=$scope.channels.filter(function(channel){
             return channel.inf.tvgCountry==country
          })
         }
-        webService.get(pathCountries,{},function(transCountry){
-        $scope.transCountrys=transCountry.data;
+
 
         webService.get(path,{},function(data){
          reader.read(data);
@@ -58,24 +120,22 @@ angular.module('myApp')
           })
           $scope.changeCountry('TW')
         })
-        })
+
         $scope.nextChannel=function(){
         $scope.selectedIndex+=1
         if($scope.selectChannels.length<=$scope.selectedIndex)$scope.selectedIndex=0
-          var url=$scope.selectChannels[$scope.selectedIndex].url
-          var idx=$scope.selectedIndex
-          $scope.switchChannel(url,idx)
+          $scope.switchChannel(null,$scope.selectedIndex)
         }
         $scope.backChannel=function(){
         $scope.selectedIndex-=1
         if($scope.selectedIndex<0)$scope.selectedIndex=0
-          var url=$scope.selectChannels[$scope.selectedIndex].url
-          var idx=$scope.selectedIndex
-          $scope.switchChannel(url,idx)
+          $scope.switchChannel(null,$scope.selectedIndex)
         }
 
         $scope.switchChannel=function(url,index){
+        if(!url)url=$scope.selectChannels[index].url
         $scope.selectedIndex=index
+        $scope.tvTitle=$scope.selectChannels[index].inf.title
         console.log('url',url)
           player.src({ type: "application/x-mpegURL",
           src:url });
@@ -84,105 +144,4 @@ angular.module('myApp')
 
         }
        
-    }])
-    .controller('LineUserInfoCtrl',['$scope','$rootScope','modal','cfpLoadingBar',function($scope,$rootScope,modal,cfpLoadingBar){
-    $scope.profile={userId:'xxxxxx',displayName:'name'}
-    liff.getProfile().then(function (profile) {
-    $scope.profile=profile;
-    console.log('profile',profile)
-
-    }).catch(function (error) {
-        window.alert("Error getting profile: " + error);
-    });
-    }])
-    .controller('LineUserEditorCtrl',['$scope','$rootScope','modal','cfpLoadingBar','webService','$location',function($scope,$rootScope,modal,cfpLoadingBar,webService,$location){
-    $scope.user={userId:'xxxxxx',displayName:'name'}
-    $scope.genderArray=[{key:'female',name:'女'},{key:'male',name:'男'}]
-    $scope.classArray=['未分類','家人','親戚','朋友','同事','客戶','名人']
-    $scope.isUser=false;
-
-    $scope.init=()=>{
-    $scope.customer={gender:'male',classname:"未分類"};
-    }
-
-    $scope.getParams=()=>{
-    console.log("$routeParams",$location.search())
-    if(getUrlParameter('isUser')){
-    $scope.isUser=true;
-    }
-    if(getUrlParameter('name')){
-    $scope.customer.name=getUrlParameter('name')
-    }
-    if(getUrlParameter('classname')){
-    $scope.customer.classname=getUrlParameter('classname')
-    }
-    if(getUrlParameter('gender')){
-    $scope.customer.gender=getUrlParameter('gender')
-    }
-    if(getUrlParameter('birthday')){
-    $scope.customer.birthday=new Date(getUrlParameter('birthday'))
-    }
-    }
-      $scope.init()
-      $scope.getParams()
-
-      const dateToString= (_date)=>{
-      if(_date instanceof Date){
-      return _date.getFullYear()+"/"+Number(_date.getMonth()+1)+"/"+_date.getDate()
-      //return _date.toISOString().replace('-', '/').split('T')[0].replace('-', '/').substr(0,10)
-      }else{
-      return _date
-      }
-      }
-
-      try{
-      liff.getProfile().then(function (profile) {
-      $scope.user=profile;
-      $scope.customer.uid=profile.userId
-      console.log('profile',profile)
-
-      }).catch(function (error) {
-          window.alert("Error getting profile: " + error);
-      });
-      }catch(err){
-      }
-        
-        $scope.closeAlert=function(i,alerts){
-         $scope.alerts.splice(i,1);
-        }
-        
-        $scope.ok=function(){
-        let theshop=$scope.customer
-        $scope.alerts=[];
-        if(!theshop.classname || !theshop.gender || !theshop.name || !theshop.birthday ){
-        $scope.alerts.push({msg:"沒有填寫完整",type:'warning'})
-        return true
-        }else{
-        let thedata=$scope.customer;
-        thedata.birthday=dateToString($scope.customer.birthday);
-        let path="https://api.aaa4u.info/nine/customer"
-        if($scope.isUser){
-        path="https://api.aaa4u.info/nine/user"
-        }
-        webService.add(path,thedata,function(data){
-        if(data.error){
-        $scope.alerts.push({msg:data.error,type:'warning'})
-        }else{
-        $scope.alerts.push({msg:data.msg,type:'warning'})
-        $scope.customer_old=$scope.customer;
-        $scope.init()
-        $scope.customer.classname=$scope.customer_old.classname;
-        $scope.customer.uid=$scope.user.userId
-        }
-         
-        })
-
-        }
-        }
-        
-        $scope.save = function() {
-        //webService.add("https://49671979.ngrok.io/api/internal/owners",$scope.user,function(){
-
-        //})
-        }
     }])

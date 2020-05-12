@@ -8,7 +8,15 @@ background-color: #d3d7d4;
 z-index:30;
 }
 
+.channel {
+padding: 5px;
+background-color: #ffffff;
+margin:5px 
+}
+
+
 body { 
+background-color: #d3d7d4;
 padding-top: 40px; 
 padding-bottom: 40px; 
 }
