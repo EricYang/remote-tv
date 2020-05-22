@@ -21,7 +21,9 @@
 <h3>{{tvTitle}}</h3>
 <video id="my_video_1" class="video-js vjs-default-skin" playsinline controls preload="auto" style="width:100% !important; height:'auto'!important;"
 data-setup='{}'>
-<source id="source" src="http://ivi.bupt.edu.cn/hls/cctv1.m3u8" type="application/x-mpegURL">
+<source id="source"
+src="http://cloud-play.hhalloy.com/live/c614a26c0e0fb521c5cdfa10ed7f2089.flv"
+type="application/x-mpegURL">
 </video>
 <hr>
 </div>
@@ -37,6 +39,8 @@ data-setup='{}'>
 <script>
 
 var player = videojs('my_video_1', {
+liveui: true,
+"techOrder": ["html5"],
 html5: {
 hls: {
 overrideNative: true

@@ -30,5 +30,8 @@
   "dependencies": {
     "ping-wrapper": "0.0.3",
     "request": "^2.72.0"
+  },
+  "devDependencies": {
+    "video.js": "^7.7.6"
   }
 }
