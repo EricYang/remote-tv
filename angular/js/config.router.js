@@ -22,6 +22,15 @@ angular.module('myApp')
             },
         }
     })
+    .state('tv3', {
+        url: "/tv3",
+        views: {
+            content: {
+                templateUrl: 'angular/tpl/tv3.html',
+                controller: 'Tv3Ctrl'
+            },
+        }
+    })
     .state('setting-networks', {
         url: "/setting/networks",
         views: {
