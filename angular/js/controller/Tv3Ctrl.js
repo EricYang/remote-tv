@@ -1,7 +1,7 @@
 
 angular.module('myApp')
     .controller('Tv3Ctrl',['$scope','$rootScope','$location','modal','cfpLoadingBar','webService',function($scope,$rootScope,$location,modal,cfpLoadingBar,webService){
-    var path="https://iptv-org.github.io/iptv/index.category.m3u"
+    var path="resource/index.category.m3u"
     
         $scope.transCountrys=transCountrys;
         $scope.type=$location.search().type

@@ -2,7 +2,7 @@
 
 angular.module('myApp')
 .config(['$stateProvider','$urlRouterProvider',function($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise("/tv");
+    $urlRouterProvider.otherwise("/tv3");
     var header = {
         templateUrl: 'angular/tpl/header.html',
         controller: function($scope) {}
